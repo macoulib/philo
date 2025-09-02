@@ -6,23 +6,20 @@
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:12:38 by macoulib          #+#    #+#             */
-/*   Updated: 2025/08/29 16:21:45 by macoulib         ###   ########.fr       */
+/*   Updated: 2025/09/01 16:22:01 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-
-int init_all_mutex(t_data *data)
+int	init_all_mutex(t_data *data)
 {
-
 	if (pthread_mutex_init(&data->fork_locks, NULL) != 0)
 		return (0);
 	if (pthread_mutex_init(&data->sim_stop_lock, NULL) != 0)
-		return (0) ;
+		return (0);
 	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
-		return  (0);
+		return (0);
 	return (1);
 }
 
@@ -63,8 +60,9 @@ t_philo	**init_philo(t_data *data)
 
 t_data	*init_data(int ac, char **av)
 {
-	
-	t_data *data = malloc(sizeof(t_data) * 1);
+	t_data	*data;
+
+	data = malloc(sizeof(t_data) * 1);
 	if (!data)
 		return (NULL);
 	data->number_of_philosophers = ft_atoi(av[1]);
@@ -73,12 +71,12 @@ t_data	*init_data(int ac, char **av)
 	data->time_to_sleep = ft_atoi(av[4]);
 	if (av[5] != NULL)
 		data->eat_count = ft_atoi(av[5]);
-	data->eat_count = -1;
+	else
+		data->eat_count = -1;
 	data->philos = init_philo(data);
 	if (!data->philos)
 		return (NULL);
-	if(!init_all_mutex(data))
+	if (!init_all_mutex(data))
 		return ;
 	return (data);
 }
-

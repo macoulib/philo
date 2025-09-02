@@ -6,7 +6,7 @@
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:12:32 by macoulib          #+#    #+#             */
-/*   Updated: 2025/08/29 16:15:48 by macoulib         ###   ########.fr       */
+/*   Updated: 2025/09/02 12:19:07 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-#define PTHREAD_MUTEX_INITIALIZER { { __PTHREAD_MUTEX_INITIALIZER (PTHREAD_MUTEX_TIMED_NP) } }
-
 typedef struct s_data
 {
 	pthread_mutex_t	sim_stop_lock;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	**fork_locks;
-	time_t			star_time;
+	time_t			start_time;
 	unsigned int	number_of_philosophers;
 	pthread_t		grim_reaper;
 	time_t			time_to_die;
@@ -50,9 +48,11 @@ typedef struct s_philo
 	t_data			*data;
 }					t_philo;
 
-void				correct_arg(int ac, char **av);
+int				correct_argv(int ac, char **av);
 int					ft_atoi(char *str);
 t_data				*init_data(int ac, char **av);
 t_philo				**init_philo(t_data *data);
-
+time_t				get_time_ms(void);
+void				start_delay(time_t start);
+void				*philosopher(void *x);
 #endif

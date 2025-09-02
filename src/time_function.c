@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   time_function.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/28 13:12:47 by macoulib          #+#    #+#             */
-/*   Updated: 2025/09/02 12:13:43 by macoulib         ###   ########.fr       */
+/*   Created: 2025/09/01 15:05:06 by macoulib          #+#    #+#             */
+/*   Updated: 2025/09/01 15:07:48 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*philosopher(void *x)
+time_t	get_time_ms(void)
 {
-	t_philo *philo;
+	struct timeval		x;
 
-	philo = (t_philo *)x;
-    
+	gettimeofday(&x, NULL);
+	return ((x.tv_sec * 1000) + (x.tv_usec / 1000));
+}
+
+
+void	start_delay(time_t start)
+{
+	while (get_time_ms() < start)
+		continue ;
 }

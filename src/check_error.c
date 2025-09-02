@@ -6,7 +6,7 @@
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:12:35 by macoulib          #+#    #+#             */
-/*   Updated: 2025/08/29 15:48:26 by macoulib         ###   ########.fr       */
+/*   Updated: 2025/09/02 12:19:01 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-void	correct_arg(int ac, char **av)
+int	correct_argv(int ac, char **av)
 {
 	int	i;
 	int	j;
