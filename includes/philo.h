@@ -6,7 +6,7 @@
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:12:32 by macoulib          #+#    #+#             */
-/*   Updated: 2025/09/02 12:19:07 by macoulib         ###   ########.fr       */
+/*   Updated: 2025/09/02 18:53:11 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,46 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+// structure
+typedef struct s_philo t_philo;  
+
 typedef struct s_data
 {
-	pthread_mutex_t	sim_stop_lock;
-	pthread_mutex_t	write_lock;
-	pthread_mutex_t	**fork_locks;
-	time_t			start_time;
-	unsigned int	number_of_philosophers;
-	pthread_t		grim_reaper;
-	time_t			time_to_die;
-	time_t			time_to_eat;
-	time_t			time_to_sleep;
-	int				eat_count;
-	bool			sim_stop;
-	t_philo			**philos;
+	long simulation_start_time;    // Moment où la simulation commence
+	int total_philosophers;        // Nombre total de philosophes
+	int time_to_die;               // Temps maximal sans manger avant de mourir
+	int time_to_eat;               // Durée de l'action manger
+	int time_to_sleep;             // Durée de l'action dormir
+	int required_meals;            // Nbr de repas requis pour chaque philosophe
+	int philosopher_died;          // Indique si un philosophe est mort (bool)
+	int all_met_requirements;      // ls philosophes ont atteint le nbr de repas
+	pthread_mutex_t *fork_mutexes; // Tableau de mutex pour les fourchettes
+	pthread_mutex_t print_mutex;   // Mutex pour l'affichage
+	pthread_mutex_t death_mutex;   // Mutex pour vérifier la mort
+	pthread_mutex_t meal_mutex;    // Mutex pour accéder aux repas
+	pthread_t monitor_thread;      // Thread de surveillance
+	t_philo *philosophers;         // Tableau des philosophes
 }					t_data;
 
 typedef struct s_philo
 {
-	pthread_t		thread;
-	pthread_mutex_t	food_time_lock;
-	unsigned int	id;
-	unsigned int	ates_time;
-	time_t			last_meal;
+	pthread_t thread;    // Thread associé au philosophe
+	t_data *shared_data; // Pointeur vers les données partagées
+	int id;              // Identifiant du philosophe
+	int meals_eaten;     // Nombre de repas consommés
+	long last_meal_time; // Heure du dernier repas
 	unsigned int	fork[2];
-	t_data			*data;
 }					t_philo;
 
-int				correct_argv(int ac, char **av);
-int					ft_atoi(char *str);
+// functions
+
+void				*philo_routine(void *x);
+void				take_fork(t_data *data);
+int					rest_and_mutexes_init(t_data *data);
+int					init_philo(t_data *data);
 t_data				*init_data(int ac, char **av);
-t_philo				**init_philo(t_data *data);
+void				write_status(t_data *data, const char *message);
 time_t				get_time_ms(void);
 void				start_delay(time_t start);
-void				*philosopher(void *x);
+
 #endif

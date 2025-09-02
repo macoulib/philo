@@ -6,16 +6,13 @@
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:12:47 by macoulib          #+#    #+#             */
-/*   Updated: 2025/09/02 12:13:43 by macoulib         ###   ########.fr       */
+/*   Updated: 2025/09/02 17:10:05 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*philosopher(void *x)
+void	*philo_routine(void *x)
 {
-	t_philo *philo;
-
-	philo = (t_philo *)x;
-    
+	return (0);
 }
