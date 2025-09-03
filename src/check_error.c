@@ -6,7 +6,7 @@
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:12:35 by macoulib          #+#    #+#             */
-/*   Updated: 2025/09/02 12:19:01 by macoulib         ###   ########.fr       */
+/*   Updated: 2025/09/03 17:59:14 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,14 @@ int	correct_argv(int ac, char **av)
 	if (ft_atoi(av[1]) > 255)
 		return (0);
 	return (1);
+}
+
+int	simulation_stopped(t_data *data)
+{
+	int stopped;
+
+	pthread_mutex_lock(&data->death_mutex);
+	stopped = (data->philosopher_died || data->all_met_requirements);
+	pthread_mutex_unlock(&data->death_mutex);
+	return (stopped);
 }

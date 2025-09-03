@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/28 13:12:47 by macoulib          #+#    #+#             */
-/*   Updated: 2025/09/02 17:10:05 by macoulib         ###   ########.fr       */
+/*   Created: 2025/09/02 17:40:33 by macoulib          #+#    #+#             */
+/*   Updated: 2025/09/03 17:01:58 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*philo_routine(void *x)
+void	philo_sleep(t_data *data, long time_in_ms)
 {
-	return (0);
+	long start;
+
+	start = get_time_ms();
+	while (!simulation_stopped(data) && get_time_ms() - start < time_in_ms)
+		usleep(500);
 }
+

@@ -6,7 +6,7 @@
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:12:32 by macoulib          #+#    #+#             */
-/*   Updated: 2025/09/02 18:53:11 by macoulib         ###   ########.fr       */
+/*   Updated: 2025/09/03 17:50:05 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <unistd.h>
 
 // structure
-typedef struct s_philo t_philo;  
+typedef struct s_philo	t_philo;
 
 typedef struct s_data
 {
@@ -40,7 +40,7 @@ typedef struct s_data
 	pthread_mutex_t meal_mutex;    // Mutex pour accéder aux repas
 	pthread_t monitor_thread;      // Thread de surveillance
 	t_philo *philosophers;         // Tableau des philosophes
-}					t_data;
+}						t_data;
 
 typedef struct s_philo
 {
@@ -49,18 +49,22 @@ typedef struct s_philo
 	int id;              // Identifiant du philosophe
 	int meals_eaten;     // Nombre de repas consommés
 	long last_meal_time; // Heure du dernier repas
-	unsigned int	fork[2];
-}					t_philo;
+	unsigned int		fork[2];
+	pthread_mutex_t		meal_time_lock;
+}						t_philo;
 
 // functions
 
-void				*philo_routine(void *x);
-void				take_fork(t_data *data);
-int					rest_and_mutexes_init(t_data *data);
-int					init_philo(t_data *data);
-t_data				*init_data(int ac, char **av);
-void				write_status(t_data *data, const char *message);
-time_t				get_time_ms(void);
-void				start_delay(time_t start);
+void					*philo_routine(void *x);
+void					take_fork(t_philo *philo);
+int						rest_and_mutexes_init(t_data *data);
+int						init_philo(t_data *data);
+t_data					*init_data(int ac, char **av);
+void					write_status(t_data *data, const char *message);
+time_t					get_time_ms(void);
+void					start_delay(long start_time);
+void					philo_sleep(t_data *data, long time_in_ms);
+int						simulation_stopped(t_data *data);
+void					*monitor_routine(void *x);
 
 #endif
