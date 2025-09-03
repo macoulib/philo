@@ -6,7 +6,7 @@
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:12:41 by macoulib          #+#    #+#             */
-/*   Updated: 2025/09/03 17:26:12 by macoulib         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:41:23 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	create_thread(t_data *data)
 		return (1);
 	}
 	pthread_join(data->monitor_thread, NULL);
+	return (0);
 }
 
 int	main(int ac, char **av)

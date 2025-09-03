@@ -6,7 +6,7 @@
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 13:12:32 by macoulib          #+#    #+#             */
-/*   Updated: 2025/09/03 17:50:05 by macoulib         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:40:47 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ void					start_delay(long start_time);
 void					philo_sleep(t_data *data, long time_in_ms);
 int						simulation_stopped(t_data *data);
 void					*monitor_routine(void *x);
+int						correct_argv(int ac, char **av);
 
 #endif
