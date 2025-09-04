@@ -6,7 +6,7 @@
 #    By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/28 13:12:22 by macoulib          #+#    #+#              #
-#    Updated: 2025/08/28 13:12:25 by macoulib         ###   ########.fr        #
+#    Updated: 2025/09/04 13:24:37 by macoulib         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,12 @@ SRC_PATH = src/
 OBJ_PATH = objects/
 
 SRC		=	main.c \
-			parsing.c \
-			philo.c \
+			timer_and_write_function.c \
+			check_error.c \
 			init.c \
-			error.c
+			monitor.c \
+			philo_routine.c \
+			philosophers.c 
 SRCS	= $(addprefix $(SRC_PATH), $(SRC))
 OBJ		= $(SRC:.c=.o)
 OBJS	= $(addprefix $(OBJ_PATH), $(OBJ))

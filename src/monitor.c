@@ -6,7 +6,7 @@
 /*   By: macoulib <macoulib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 17:00:49 by macoulib          #+#    #+#             */
-/*   Updated: 2025/09/03 18:35:40 by macoulib         ###   ########.fr       */
+/*   Updated: 2025/09/04 14:28:09 by macoulib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	*monitor_routine(void *arg)
 	data = (t_data *)arg;
 	while (1)
 	{
-		i = 0;
 		req = 1;
+		i = 0;
 		while (i < data->total_philosophers)
 		{
 			pthread_mutex_lock(&data->philosophers[i].meal_time_lock);
@@ -37,19 +37,19 @@ void	*monitor_routine(void *arg)
 				pthread_mutex_unlock(&data->death_mutex);
 				write_status(data, "died");
 				return (NULL);
-				if (data->required_meals > 0
-					&& data->philosophers[i].meals_eaten < data->required_meals)
-					req = 0;
-				i++;
 			}
-			if (req && data->required_meals > 0)
-			{
-				pthread_mutex_lock(&data->death_mutex);
-				data->all_met_requirements = 1;
-				pthread_mutex_unlock(&data->death_mutex);
-				return (NULL);
-			}
-			usleep(1000);
+			if (data->required_meals > 0
+				&& data->philosophers[i].meals_eaten < data->required_meals)
+				req = 0;
+			i++;
 		}
+		if (req && data->required_meals > 0)
+		{
+			pthread_mutex_lock(&data->death_mutex);
+			data->all_met_requirements = 1;
+			pthread_mutex_unlock(&data->death_mutex);
+			return (NULL);
+		}
+		usleep(1000);
 	}
 }
